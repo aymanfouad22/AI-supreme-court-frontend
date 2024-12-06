@@ -112,6 +112,7 @@ This setup allows users to have a natural conversation with the AI while getting
 
 ### 1. App in Action:
 Watch a video demonstrating how users interact with the app, query cases, and use the chatbot.
-Watch the App Demo Video
+[Watch the App Demo Video](https://go.screenpal.com/watch/cZl1YunnYj2?_gl=1*11yon26*_ga*ODkwMzUwODA2LjE3MzM1MTY0ODA.*_ga_J7G603GGVL*MTczMzUxNjQ4MC4xLjEuMTczMzUxNzA3MC4wLjAuMA..)
+
 
 
