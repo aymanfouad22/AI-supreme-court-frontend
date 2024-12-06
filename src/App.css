@@ -171,6 +171,12 @@ body {
   overflow-y: auto;
   padding-right: 15px;
 }
+.greeting {
+  font-size: 18px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-top: 10px;
+}
 
 .message {
   margin-bottom: 15px;

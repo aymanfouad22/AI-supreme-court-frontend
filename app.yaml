@@ -1,0 +1,11 @@
+runtime: nodejs20  # Specify the Node.js runtime version (can use the latest LTS version like nodejs16)
+
+env: standard  # Using the standard environment for App Engine
+instance_class: F2  # Optional: Define the instance class depending on your app's resource needs (F2 is for moderate use)
+
+handlers:
+  - url: /static
+    static_dir: build/static  # Serve static files from the build/static directory
+  - url: /
+    static_files: build/index.html  # Serve index.html for any non-static route
+    upload: build/index.html

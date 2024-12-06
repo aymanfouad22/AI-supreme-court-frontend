@@ -1,26 +1,37 @@
+// App.js
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import { Routes, Route, Navigate } from "react-router-dom";  
 import logo from './logo.png';
+import LoginPage from "./LoginPage";  
+import HomePage from "./HomePage"; 
 
-// Main App Component
 const App = () => {
-  const [selectedYear, setSelectedYear] = useState(2024); // Default selected year
-  const [cases, setCases] = useState([]); // State to hold the cases
-  const [selectedCase, setSelectedCase] = useState(null); // State to hold the selected case
-  const [chatbotMessages, setChatbotMessages] = useState([]); // State for chatbot messages
-  const [isChatbotVisible, setIsChatbotVisible] = useState(false); // State to toggle chatbot visibility
-  const [userInput, setUserInput] = useState(""); // State for the user input
-  const [loading, setLoading] = useState(false); // Loading state for the API request
-  const [userName, setUserName] = useState("ayman"); // State for username
+  const [selectedYear, setSelectedYear] = useState(2024); 
+  const [cases, setCases] = useState([]);
+  const [selectedCase, setSelectedCase] = useState(null);
+  const [chatbotMessages, setChatbotMessages] = useState([]);
+  const [isChatbotVisible, setIsChatbotVisible] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState("");
 
-  // Fetch cases from the Spring API based on the selected year
+  // Check if the user is logged in
+  useEffect(() => {
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
+
   const fetchCases = async (year) => {
     setLoading(true);
     try {
       const response = await axios.get(`http://scotusapi.doesntexist.com/getCases?year=${year}`);
-      console.log("Fetched Cases:", response.data); // Log fetched cases for debugging
-      setCases(response.data); // Assuming response.data is an array of cases
+      console.log("Fetched Cases:", response.data);
+      setCases(response.data);
     } catch (error) {
       console.error("Error fetching cases:", error);
     } finally {
@@ -28,19 +39,16 @@ const App = () => {
     }
   };
 
-  // Fetch cases whenever the selected year changes
   useEffect(() => {
     fetchCases(selectedYear);
   }, [selectedYear]);
 
-  // Handle case selection to show the chatbot
   const handleCaseSelect = (courtCase) => {
     setSelectedCase(courtCase);
     setIsChatbotVisible(true);
-    setChatbotMessages([{ sender: "rag", message: `You can ask about ${courtCase}.` }]); // Initial message
+    setChatbotMessages([{ sender: "rag", message: `You can ask about ${courtCase}.` }]); 
   };
 
-  // Handle sending a message to the RAG-based chatbot using .then() and .catch()
   const handleSendMessage = () => {
     if (userInput.trim()) {
       const newMessages = [
@@ -49,54 +57,23 @@ const App = () => {
       ];
   
       setChatbotMessages(newMessages);
-      setUserInput(""); // Clear input field
+      setUserInput("");
   
-      // URL encode all parameters
       const encodedUserName = encodeURIComponent(userName);
       const encodedYear = encodeURIComponent(selectedYear);
       const encodedCaseName = encodeURIComponent(selectedCase);
       const encodedUserMessage = encodeURIComponent(userInput);
   
-      console.log(encodedCaseName);
-  
-      // Log request data for debugging
-      console.log("Sending request with parameters:", {
-        userName: encodedUserName,
-        year: encodedYear,
-        caseName: encodedCaseName,
-        userMessage: encodedUserMessage,
-      });
-  
-      // Make the request to the API using axios with .then() and .catch()
       axios
         .get(
           `http://scotusapi.doesntexist.com/chat?userName=${encodedUserName}&year=${encodedYear}&caseName=${encodedCaseName}&userMessage=${encodedUserMessage}`
         )
         .then((response) => {
-          // Log the full response to see what we get
-          console.log("Chatbot Response:", response);
-  
           if (response.status === 200) {
-            // Check if the response is JSON or plain text
-            if (response.data && typeof response.data === 'object' && response.data.answer) {
-              // If it's JSON with an "answer" field
-              setChatbotMessages([
-                ...newMessages,
-                { sender: "rag", message: response.data.answer }
-              ]);
-            } else if (typeof response.data === 'string') {
-              // If it's plain text, treat it as a string and display
-              setChatbotMessages([
-                ...newMessages,
-                { sender: "rag", message: response.data }
-              ]);
-            } else {
-              // If the format is not as expected
-              setChatbotMessages([
-                ...newMessages,
-                { sender: "rag", message: "Sorry, I couldn't retrieve a valid response." }
-              ]);
-            }
+            setChatbotMessages([
+              ...newMessages,
+              { sender: "rag", message: response.data.answer || "Sorry, no response from chatbot." }
+            ]);
           } else {
             setChatbotMessages([
               ...newMessages,
@@ -113,26 +90,19 @@ const App = () => {
         });
     }
   };
-  document.addEventListener('DOMContentLoaded', () => {
-    const caseItems = document.querySelectorAll('.case-item');
-  
-    caseItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        // Remove the active class from all items
-        caseItems.forEach((caseItem) => caseItem.classList.remove('active'));
-        
-        // Add the active class to the clicked item
-        item.classList.add('active');
-      });
-    });
-  });
-  
+
+  // Render the main content only if the user is logged in
+  if (!userName) {
+    return <LoginPage setUserName={setUserName} />;
+  }
+
   return (
     <div className="app-container">
       {/* Header */}
       <header className="header">
         <img src={logo} alt="Logo" className="logo" />
         <h1 className="court-name">AI Supreme Court</h1>
+        {userName && <p className="greeting">Welcome, {userName}!</p>}
       </header>
 
       {/* Year Selection Panel */}
@@ -152,28 +122,27 @@ const App = () => {
 
       {/* Main Content Area */}
       <div className="main-content">
-      <div className="case-list-container">
-  <h2>Cases from {selectedYear}</h2>
-  {loading ? (
-    <p>Loading cases...</p>
-  ) : cases.length === 0 ? (
-    <p>No cases available for this year.</p>
-  ) : (
-    <ul className="case-list">
-      {cases.map((courtCase) => (
-        <li
-          key={courtCase.id} // Use a unique key
-          onClick={() => handleCaseSelect(courtCase)}
-          className={`case-item ${selectedCase === courtCase ? "active" : ""}`}
-        >
-          <div className="case-name">{courtCase}</div>
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
+        <div className="case-list-container">
+          <h2>Cases from {selectedYear}</h2>
+          {loading ? (
+            <p>Loading cases...</p>
+          ) : cases.length === 0 ? (
+            <p>No cases available for this year.</p>
+          ) : (
+            <ul className="case-list">
+              {cases.map((courtCase) => (
+                <li
+                  key={courtCase.id}
+                  onClick={() => handleCaseSelect(courtCase)}
+                  className={`case-item ${selectedCase === courtCase ? "active" : ""}`}
+                >
+                  <div className="case-name">{courtCase}</div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-        {/* Chatbot Section */}
         {isChatbotVisible && selectedCase && (
           <div className="chatbot-container">
             <h3>Chatbot: Ask about {selectedCase}</h3>
