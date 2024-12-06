@@ -111,9 +111,8 @@ This setup allows users to have a natural conversation with the AI while getting
 ## Video Demonstrations
 
 ### 1. App in Action:
-Watch a video demonstrating how users interact with the app, query cases, and use the chatbot.  
-[Watch the App Demo Video (3+ minutes)](link-to-video)
+Watch a video demonstrating how users interact with the app, query cases, and use the chatbot.
+[Watch the App Demo Video](https://go.screenpal.com/watch/cZl1YunnYj2?_gl=1*11yon26*_ga*ODkwMzUwODA2LjE3MzM1MTY0ODA.*_ga_J7G603GGVL*MTczMzUxNjQ4MC4xLjEuMTczMzUxNzA3MC4wLjAuMA..)
 
-### 2. User Test:
-A test user interacting with the app, selecting cases, and commenting on responses from the chatbot.  
-[Watch the User Test Video (3+ minutes)](link-to-video)
+
+
