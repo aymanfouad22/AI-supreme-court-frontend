@@ -1,12 +1,8 @@
-// App.js
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";  
 import logo from './logo.png';
 import LoginPage from "./LoginPage";  
-import HomePage from "./HomePage"; 
 
 const App = () => {
   const [selectedYear, setSelectedYear] = useState(2024); 
@@ -26,6 +22,7 @@ const App = () => {
     }
   }, []);
 
+  // Fetch cases based on selected year
   const fetchCases = async (year) => {
     setLoading(true);
     try {
@@ -43,12 +40,14 @@ const App = () => {
     fetchCases(selectedYear);
   }, [selectedYear]);
 
+  // Handle the selection of a case
   const handleCaseSelect = (courtCase) => {
     setSelectedCase(courtCase);
     setIsChatbotVisible(true);
     setChatbotMessages([{ sender: "rag", message: `You can ask about ${courtCase}.` }]); 
   };
 
+  // Send message to the chatbot
   const handleSendMessage = () => {
     if (userInput.trim()) {
       const newMessages = [
@@ -59,22 +58,31 @@ const App = () => {
       setChatbotMessages(newMessages);
       setUserInput("");
   
-      const encodedUserName = encodeURIComponent(userName);
+      const encodedUserName = encodeURIComponent(userName);  // Correct encoding for userName
       const encodedYear = encodeURIComponent(selectedYear);
-      const encodedCaseName = encodeURIComponent(selectedCase);
-      const encodedUserMessage = encodeURIComponent(userInput);
+      const encodedCaseName = encodeURIComponent(selectedCase); // Ensure selectedCase is a string
+      const encodedUserMessage = encodeURIComponent(userInput);  // Correct encoding for userMessage
   
+      // API request to the chatbot
       axios
         .get(
           `http://scotusapi.doesntexist.com/chat?userName=${encodedUserName}&year=${encodedYear}&caseName=${encodedCaseName}&userMessage=${encodedUserMessage}`
         )
         .then((response) => {
+          console.log('API Response:', response); // Log full response
+  
           if (response.status === 200) {
+            // Since the response is plain text, use response.data directly
+            const chatbotMessage = response.data || "Sorry, no response from chatbot.";  // Default message if empty
+  
+            console.log("Answer received from API:", chatbotMessage); // Log the answer
+  
             setChatbotMessages([
               ...newMessages,
-              { sender: "rag", message: response.data.answer || "Sorry, no response from chatbot." }
+              { sender: "rag", message: chatbotMessage }
             ]);
           } else {
+            console.log(`Error: Status ${response.status}`); // Log status error
             setChatbotMessages([
               ...newMessages,
               { sender: "rag", message: `Error: Status ${response.status}.` }
@@ -90,6 +98,7 @@ const App = () => {
         });
     }
   };
+  
 
   // Render the main content only if the user is logged in
   if (!userName) {

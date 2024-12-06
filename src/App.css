@@ -52,14 +52,22 @@ body {
   background-color: #f7f8fa;
   border: 2px solid #bdc3c7; 
   border-left: none; 
-  border-radius: 5px; 
-  font-size: 16px;
+  border-radius: 8px; /* Slightly larger radius for rounded corners */
+  font-size: 18px; /* Increase font size */
+  padding: 12px 24px; /* Add more padding to increase button size */
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   font-weight: 600;
   color: #333; 
+  height: 50px; /* Explicitly set height */
+  min-width: 80px; /* Ensure a minimum width for consistency */
 }
+
+.years button:hover {
+  background-color: #e0e0e0; /* Change background on hover */
+}
+
 
 /* Remove border from the first button, to make them visually connected */
 .years button:first-child {
