@@ -36,7 +36,7 @@ function LoginPage() {
       localStorage.setItem('userName', user.displayName);
 
       // Navigate to the home page after successful login
-      navigate("/home");  // Ensure the correct redirect to home page
+      navigate("/home");  
     } catch (error) {
       setError(error.message);
       console.error("Error during sign-in:", error.message);

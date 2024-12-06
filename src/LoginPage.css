@@ -4,29 +4,29 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f7f8fa; /* Matching background color from app.css */
+  background-color: #f7f8fa; 
 }
 
 .login-container {
   text-align: center;
   background-color: #ffffff;
   padding: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow to match app.css */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
   border-radius: 8px;
   max-width: 400px;
   width: 100%;
-  background: linear-gradient(to bottom, #ffffff, #f1f1f1); /* Soft gradient for login container */
+  background: linear-gradient(to bottom, #ffffff, #f1f1f1); 
 }
 
 .login-header {
   font-size: 24px;
-  color: #2c3e50; /* Dark text color, matching app.css header text */
+  color: #2c3e50; 
   margin-bottom: 20px;
-  font-family: 'Playfair Display', serif; /* Matching elegant serif font */
+  font-family: 'Playfair Display', serif; 
 }
 
 .login-btn {
-  background-color: #8e44ad; /* Purple button, matching app.css */
+  background-color: #8e44ad; 
   color: white;
   border: none;
   padding: 12px 20px;
@@ -38,12 +38,11 @@
 }
 
 .login-btn:hover {
-  background-color: #9b59b6; /* Lighter purple on hover */
-  transform: translateY(-3px); /* Lift effect similar to app.css button */
-}
+  background-color: #9b59b6; 
+  transform: translateY(-3px);
 
 .login-btn:disabled {
-  background-color: #b0bec5; /* Disabled button color */
+  background-color: #b0bec5; 
   cursor: not-allowed;
 }
 
@@ -77,20 +76,20 @@
 
 .input-panel input:focus {
   outline: none;
-  border-color: #f39c12; /* Gold border on focus */
+  border-color: #f39c12;
 }
 
 @media screen and (max-width: 768px) {
   .login-container {
-    width: 100%; /* Full width on mobile */
+    width: 100%; 
     padding: 20px;
   }
 
   .login-header {
-    font-size: 20px; /* Adjust header font size for smaller screens */
+    font-size: 20px; 
   }
 
   .login-btn {
-    font-size: 14px; /* Smaller button text on mobile */
+    font-size: 14px; 
   }
-}
+}}
