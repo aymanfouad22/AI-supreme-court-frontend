@@ -117,13 +117,3 @@ Watch a video demonstrating how users interact with the app, query cases, and us
 ### 2. User Test:
 A test user interacting with the app, selecting cases, and commenting on responses from the chatbot.  
 [Watch the User Test Video (3+ minutes)](link-to-video)
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-For questions or further information, feel free to reach out to me at [your-email@example.com](mailto:your-email@example.com).
-
-## Additional Notes:
-- Make sure the backend is running before interacting with the frontend.
-- Ensure you have set up Firebase authentication correctly for user login to work.
