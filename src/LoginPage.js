@@ -16,13 +16,12 @@ function LoginPage() {
         // Store the user's display name in localStorage
         localStorage.setItem('userName', user.displayName);
         // Navigate to the home page after successful login
-        navigate("/home");  // Ensure this redirects to "/home" instead of "/" (the root)
+        navigate("/home");
       }
     });
-
+  
     return () => unsubscribe();
   }, [navigate]);
-
   // Sign-in with Google
   const signInWithGoogle = async () => {
     setLoading(true);
@@ -58,7 +57,7 @@ function LoginPage() {
           Sign In with Google
         </button>
 
-        <p className="login-info">Sign in to continue to the Bookstore</p>
+        <p className="login-info">Sign in to continue to the AI Supreme Court</p>
       </div>
     </div>
   );

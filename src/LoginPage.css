@@ -4,49 +4,53 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f3f4f6;
+  background-color: #f7f8fa; /* Matching background color from app.css */
 }
 
 .login-container {
   text-align: center;
   background-color: #ffffff;
   padding: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow to match app.css */
   border-radius: 8px;
   max-width: 400px;
   width: 100%;
+  background: linear-gradient(to bottom, #ffffff, #f1f1f1); /* Soft gradient for login container */
 }
 
 .login-header {
   font-size: 24px;
-  color: #333;
+  color: #2c3e50; /* Dark text color, matching app.css header text */
   margin-bottom: 20px;
+  font-family: 'Playfair Display', serif; /* Matching elegant serif font */
 }
 
 .login-btn {
-  background-color: #4285f4;
+  background-color: #8e44ad; /* Purple button, matching app.css */
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 20px;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
   width: 100%;
 }
 
 .login-btn:hover {
-  background-color: #357ae8;
+  background-color: #9b59b6; /* Lighter purple on hover */
+  transform: translateY(-3px); /* Lift effect similar to app.css button */
 }
 
 .login-btn:disabled {
-  background-color: #b0bec5;
+  background-color: #b0bec5; /* Disabled button color */
   cursor: not-allowed;
 }
 
 .error-message {
   color: red;
   margin-top: 15px;
+  font-size: 14px;
 }
 
 .login-info {
@@ -59,4 +63,34 @@
   font-size: 18px;
   color: #4285f4;
   margin-top: 15px;
+}
+
+/* Input Fields */
+.input-panel input {
+  flex-grow: 1;
+  padding: 12px;
+  border: 2px solid #bdc3c7;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.input-panel input:focus {
+  outline: none;
+  border-color: #f39c12; /* Gold border on focus */
+}
+
+@media screen and (max-width: 768px) {
+  .login-container {
+    width: 100%; /* Full width on mobile */
+    padding: 20px;
+  }
+
+  .login-header {
+    font-size: 20px; /* Adjust header font size for smaller screens */
+  }
+
+  .login-btn {
+    font-size: 14px; /* Smaller button text on mobile */
+  }
 }
